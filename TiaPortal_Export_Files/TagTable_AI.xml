@@ -46,6 +46,12 @@
           <Name>AHU1_HW_VlvFdbk</Name>
         </AttributeList>
       </SW.Tags.PlcTag>
+      <SW.Tags.PlcTag ID="6" CompositionName="Tags">
+        <AttributeList>
+          <DataTypeName>Real</DataTypeName>
+          <Name>AHU1_DMP_PosFdbk</Name>
+        </AttributeList>
+      </SW.Tags.PlcTag>
     </ObjectList>
   </SW.Tags.PlcTagTable>
 </Document>
