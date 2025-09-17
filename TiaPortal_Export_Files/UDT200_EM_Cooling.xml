@@ -9,15 +9,11 @@
     <AttributeList>
       <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
         <Section Name="None">
-          <Member Name="HP_Switch_DI" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Digital Input: High-pressure refrigerant switch (`True` = Fault).</MultiLanguageText></Comment></Member>
-          <Member Name="LP_Switch_DI" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Digital Input: Low-pressure refrigerant switch (`True` = Fault).</MultiLanguageText></Comment></Member>
-          <Member Name="Freeze_Stat_DI" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Digital Input: Freeze-stat on coil (`True` = Fault).</MultiLanguageText></Comment></Member>
-          <Member Name="Compressor_Cmd_DO" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Digital Output: Command to start/stop the compressor.</MultiLanguageText></Comment></Member>
-          <Member Name="Min_Run_Time_Sec" Datatype="Time" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Minimum compressor run time to prevent short-cycling (e.g., `T#3m`).</MultiLanguageText></Comment></Member>
-          <Member Name="Min_Off_Time_Sec" Datatype="Time" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Minimum compressor off time to prevent short-cycling (e.g., `T#3m`).</MultiLanguageText></Comment></Member>
-          <Member Name="HP_Fault_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: High-pressure fault.</MultiLanguageText></Comment></Member>
-          <Member Name="LP_Fault_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: Low-pressure fault.</MultiLanguageText></Comment></Member>
-          <Member Name="Freeze_Stat_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: Freeze-stat tripped.</MultiLanguageText></Comment></Member>
+          <Member Name="CHW_Freeze_Stat_DI" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Digital Input: Freeze-stat on chilled water coil (`True` = Fault).</MultiLanguageText></Comment></Member>
+          <Member Name="CHW_Valve_Fdbk_AI" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Input: Chilled water valve position feedback (0-100%).</MultiLanguageText></Comment></Member>
+          <Member Name="CHW_Valve_Cmd_AO" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Output: Chilled water valve position command (0-100%).</MultiLanguageText></Comment></Member>
+          <Member Name="CHW_Freeze_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: Chilled water coil freeze-stat has tripped.</MultiLanguageText></Comment></Member>
+          <Member Name="Valve_Failure_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: `True` if valve command and feedback do not match.</MultiLanguageText></Comment></Member>
         </Section>
       </Sections></Interface>
       <Name>UDT200_EM_Cooling</Name>

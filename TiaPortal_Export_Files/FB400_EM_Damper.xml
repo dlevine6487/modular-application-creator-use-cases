@@ -18,9 +18,13 @@
         <Section Name="InOut"/>
         <Section Name="Static">
           <Member Name="UDT" Datatype="&quot;UDT400_EM_Damper&quot;" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">The data interface for the Damper Equipment Module.</MultiLanguageText></Comment></Member>
+          <Member Name="Feedback_Fault_Timer" Datatype="TON_TIME" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Timer for the feedback fault delay.</MultiLanguageText></Comment></Member>
         </Section>
         <Section Name="Temp"/>
-        <Section Name="Constant"/>
+        <Section Name="Constant">
+          <Member Name="FEEDBACK_TOLERANCE" Datatype="Real" Accessibility="Public"><StartValue>10.0</StartValue><Comment><MultiLanguageText Lang="en-US">Allowable deviation between command and feedback (%).</MultiLanguageText></Comment></Member>
+          <Member Name="FEEDBACK_DELAY" Datatype="Time" Accessibility="Public"><StartValue>T#60s</StartValue><Comment><MultiLanguageText Lang="en-US">Time delay before a feedback mismatch becomes an alarm.</MultiLanguageText></Comment></Member>
+        </Section>
       </Sections></Interface>
       <IsRetain>false</IsRetain>
       <Name>FB400_EM_Damper</Name>
@@ -40,7 +44,17 @@
       <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v3">
-            <Token Text="REGION" UId="21"/><Token Text=" " UId="22"/><Token Text="Placeholder for SCL Code" UId="23"/><Blank UId="24"/><Token Text="&#xD;&#xA;" UId="25"/><Token Text="&#xD;&#xA;" UId="26"/><Token Text="END_REGION" UId="27"/>
+            <Token Text="REGION" UId="21"/><Token Text=" " UId="22"/><Token Text="Main Logic" UId="23"/><Blank UId="24"/><Token Text="&#xD;&#xA;" UId="25"/>
+            <Token Text="IF" UId="26"/><Token Text=" " UId="27"/><Token Text="#Enable" UId="28"/><Token Text=" " UId="29"/><Token Text="THEN" UId="30"/><Token Text="&#xD;&#xA;" UId="31"/>
+            <Blank UId="32"/><Comment UId="33" Text="-- Feedback Monitoring --"/>
+            <Blank UId="34"/><Token Text="#Feedback_Fault_Timer" UId="35"/><Token Text="(" UId="36"/><Token Text="IN" UId="37"/><Token Text=":=" UId="38"/><Token Text=" " UId="39"/><Token Text="ABS" UId="40"/><Token Text="(" UId="41"/><Token Text="FV" UId="42"/><Token Text=":=" UId="43"/><Token Text="#UDT.Damper_Pos_Cmd_AO" UId="44"/><Token Text=" " UId="45"/><Token Text="-" UId="46"/><Token Text=" " UId="47"/><Token Text="#UDT.Damper_Pos_Fdbk_AI" UId="48"/><Token Text=")" UId="49"/><Token Text=" " UId="50"/><Token Text="&gt;" UId="51"/><Token Text=" " UId="52"/><Token Text="#FEEDBACK_TOLERANCE" UId="53"/><Token Text="," UId="54"/><Token Text="&#xD;&#xA;" UId="55"/>
+            <Blank UId="56"/><Blank UId="57"/><Blank UId="58"/><Blank UId="59"/><Blank UId="60"/><Blank UId="61"/><Blank UId="62"/><Blank UId="63"/><Token Text="PT" UId="64"/><Token Text=":=" UId="65"/><Token Text=" " UId="66"/><Token Text="#FEEDBACK_DELAY" UId="67"/><Token Text=");" UId="68"/><Token Text="&#xD;&#xA;" UId="69"/>
+            <Blank UId="70"/><Token Text="#UDT.Damper_Failure_Alm" UId="71"/><Token Text=" " UId="72"/><Token Text=":=" UId="73"/><Token Text=" " UId="74"/><Token Text="#Feedback_Fault_Timer.Q" UId="75"/><Token Text=";" UId="76"/><Token Text="&#xD;&#xA;" UId="77"/>
+            <Token Text="ELSE" UId="78"/><Token Text="&#xD;&#xA;" UId="79"/>
+            <Blank UId="80"/><Comment UId="81" Text="// Block disabled, reset alarm"/>
+            <Blank UId="82"/><Token Text="#UDT.Damper_Failure_Alm" UId="83"/><Token Text=" " UId="84"/><Token Text=":=" UId="85"/><Token Text=" " UId="86"/><Token Text="FALSE" UId="87"/><Token Text=";" UId="88"/><Token Text="&#xD;&#xA;" UId="89"/>
+            <Token Text="END_IF" UId="90"/><Token Text=";" UId="91"/><Token Text="&#xD;&#xA;" UId="92"/>
+            <Token Text="END_REGION" UId="93"/>
           </StructuredText></NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>

@@ -12,7 +12,9 @@
           <Member Name="Return_Air_Temp_AI" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Input: Return air temperature sensor.</MultiLanguageText></Comment></Member>
           <Member Name="Outside_Air_Temp_AI" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Input: Outside air temperature sensor.</MultiLanguageText></Comment></Member>
           <Member Name="Discharge_Air_Temp_AI" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Input: Discharge air temperature sensor.</MultiLanguageText></Comment></Member>
+          <Member Name="Damper_Pos_Fdbk_AI" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Input: Damper position feedback (0-100%).</MultiLanguageText></Comment></Member>
           <Member Name="Damper_Pos_Cmd_AO" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Analog Output: Damper position command (0.0 - 100.0 %).</MultiLanguageText></Comment></Member>
+          <Member Name="Damper_Failure_Alm" Datatype="Bool" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Alarm: `True` if damper command and feedback do not match.</MultiLanguageText></Comment></Member>
           <Member Name="Min_Fresh_Air_Pos" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Minimum damper position for ventilation (e.g., 20.0 %).</MultiLanguageText></Comment></Member>
           <Member Name="Econ_Temp_Diff" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Temp diff (RAT - OAT) to enable economizer (e.g., 2.0).</MultiLanguageText></Comment></Member>
           <Member Name="Econ_High_Limit" Datatype="Real" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">High OAT limit to disable economizer (e.g., 65.0).</MultiLanguageText></Comment></Member>

@@ -19,9 +19,13 @@
         <Section Name="InOut"/>
         <Section Name="Static">
           <Member Name="UDT" Datatype="&quot;UDT200_EM_Cooling&quot;" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">The data interface for the Cooling Equipment Module.</MultiLanguageText></Comment></Member>
+          <Member Name="Feedback_Fault_Timer" Datatype="TON_TIME" Accessibility="Public"><Comment><MultiLanguageText Lang="en-US">Timer for the feedback fault delay.</MultiLanguageText></Comment></Member>
         </Section>
         <Section Name="Temp"/>
-        <Section Name="Constant"/>
+        <Section Name="Constant">
+          <Member Name="FEEDBACK_TOLERANCE" Datatype="Real" Accessibility="Public"><StartValue>10.0</StartValue><Comment><MultiLanguageText Lang="en-US">Allowable deviation between command and feedback (%).</MultiLanguageText></Comment></Member>
+          <Member Name="FEEDBACK_DELAY" Datatype="Time" Accessibility="Public"><StartValue>T#60s</StartValue><Comment><MultiLanguageText Lang="en-US">Time delay before a feedback mismatch becomes an alarm.</MultiLanguageText></Comment></Member>
+        </Section>
       </Sections></Interface>
       <IsRetain>false</IsRetain>
       <Name>FB200_EM_Cooling</Name>
@@ -41,7 +45,28 @@
       <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v3">
-            <Token Text="REGION" UId="21"/><Token Text=" " UId="22"/><Token Text="Placeholder for SCL Code" UId="23"/><Blank UId="24"/><Token Text="&#xD;&#xA;" UId="25"/><Token Text="&#xD;&#xA;" UId="26"/><Token Text="END_REGION" UId="27"/>
+            <Token Text="REGION" UId="21"/><Token Text=" " UId="22"/><Token Text="Main Logic" UId="23"/><Blank UId="24"/><Token Text="&#xD;&#xA;" UId="25"/>
+            <Token Text="IF" UId="26"/><Token Text=" " UId="27"/><Token Text="#Enable" UId="28"/><Token Text=" " UId="29"/><Token Text="THEN" UId="30"/><Token Text="&#xD;&#xA;" UId="31"/>
+            <Blank UId="32"/><Token Text="&#xD;&#xA;" UId="33"/>
+            <Blank UId="34"/><Comment UId="35" Text="// Pass demand to the analog output"/>
+            <Blank UId="36"/><Token Text="#UDT.CHW_Valve_Cmd_AO" UId="37"/><Token Text=" " UId="38"/><Token Text=":=" UId="39"/><Token Text=" " UId="40"/><Token Text="#Valve_Demand_In" UId="41"/><Token Text=";" UId="42"/><Token Text="&#xD;&#xA;" UId="43"/>
+            <Blank UId="44"/><Token Text="&#xD;&#xA;" UId="45"/>
+            <Blank UId="46"/><Comment UId="47" Text="// Check for freeze stat trip"/>
+            <Blank UId="48"/><Token Text="#UDT.CHW_Freeze_Alm" UId="49"/><Token Text=" " UId="50"/><Token Text=":=" UId="51"/><Token Text=" " UId="52"/><Token Text="#UDT.CHW_Freeze_Stat_DI" UId="53"/><Token Text=";" UId="54"/><Token Text="&#xD;&#xA;" UId="55"/>
+            <Blank UId="56"/><Token Text="IF" UId="57"/><Token Text=" " UId="58"/><Token Text="#UDT.CHW_Freeze_Alm" UId="59"/><Token Text=" " UId="60"/><Token Text="THEN" UId="61"/><Token Text="&#xD;&#xA;" UId="62"/>
+            <Blank UId="63"/><Blank UId="64"/><Token Text="#UDT.CHW_Valve_Cmd_AO" UId="65"/><Token Text=" " UId="66"/><Token Text=":=" UId="67"/><Token Text=" " UId="68"/><Token Text="0.0" UId="69"/><Token Text=";" UId="70"/><Token Text="&#xD;&#xA;" UId="71"/>
+            <Blank UId="72"/><Token Text="END_IF" UId="73"/><Token Text=";" UId="74"/><Token Text="&#xD;&#xA;" UId="75"/>
+            <Blank UId="76"/><Token Text="&#xD;&#xA;" UId="77"/>
+            <Blank UId="78"/><Comment UId="79" Text="-- Feedback Monitoring --"/>
+            <Blank UId="80"/><Token Text="#Feedback_Fault_Timer" UId="81"/><Token Text="(" UId="82"/><Token Text="IN" UId="83"/><Token Text=":=" UId="84"/><Token Text=" " UId="85"/><Token Text="ABS" UId="86"/><Token Text="(" UId="87"/><Token Text="FV" UId="88"/><Token Text=":=" UId="89"/><Token Text="#UDT.CHW_Valve_Cmd_AO" UId="90"/><Token Text=" " UId="91"/><Token Text="-" UId="92"/><Token Text=" " UId="93"/><Token Text="#UDT.CHW_Valve_Fdbk_AI" UId="94"/><Token Text=")" UId="95"/><Token Text=" " UId="96"/><Token Text="&gt;" UId="97"/><Token Text=" " UId="98"/><Token Text="#FEEDBACK_TOLERANCE" UId="99"/><Token Text="," UId="100"/><Token Text="&#xD;&#xA;" UId="101"/>
+            <Blank UId="102"/><Blank UId="103"/><Blank UId="104"/><Blank UId="105"/><Blank UId="106"/><Blank UId="107"/><Blank UId="108"/><Blank UId="109"/><Token Text="PT" UId="110"/><Token Text=":=" UId="111"/><Token Text=" " UId="112"/><Token Text="#FEEDBACK_DELAY" UId="113"/><Token Text=");" UId="114"/><Token Text="&#xD;&#xA;" UId="115"/>
+            <Blank UId="116"/><Token Text="#UDT.Valve_Failure_Alm" UId="117"/><Token Text=" " UId="118"/><Token Text=":=" UId="119"/><Token Text=" " UId="120"/><Token Text="#Feedback_Fault_Timer.Q" UId="121"/><Token Text=";" UId="122"/><Token Text="&#xD;&#xA;" UId="123"/>
+            <Token Text="ELSE" UId="124"/><Token Text="&#xD;&#xA;" UId="125"/>
+            <Blank UId="126"/><Comment UId="127" Text="// Block disabled, reset outputs"/>
+            <Blank UId="128"/><Token Text="#UDT.CHW_Valve_Cmd_AO" UId="129"/><Token Text=" " UId="130"/><Token Text=":=" UId="131"/><Token Text=" " UId="132"/><Token Text="0.0" UId="133"/><Token Text=";" UId="134"/><Token Text="&#xD;&#xA;" UId="135"/>
+            <Blank UId="136"/><Token Text="#UDT.Valve_Failure_Alm" UId="137"/><Token Text=" " UId="138"/><Token Text=":=" UId="139"/><Token Text=" " UId="140"/><Token Text="FALSE" UId="141"/><Token Text=";" UId="142"/><Token Text="&#xD;&#xA;" UId="143"/>
+            <Token Text="END_IF" UId="144"/><Token Text=";" UId="145"/><Token Text="&#xD;&#xA;" UId="146"/>
+            <Token Text="END_REGION" UId="147"/>
           </StructuredText></NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>
