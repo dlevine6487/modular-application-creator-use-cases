@@ -32,14 +32,14 @@ The following checklist items must be verified against the design documents. All
 | Requirement ID | Requirement Description | Design Document(s) & Specification (Example) | Verified (Y/N) | Comments / Deviations |
 | :--- | :--- | :--- | :--- | :--- |
 | **FS 5.1** | **Grade A: Temp Control** | AHU-01 Datasheet: Cooling/Heating Coil Capacity. P&ID-101: Temp Sensor T-101 specified. | | |
-| | **Grade A: Temp Setpoint:** 22°C ± 1°C | BAS Control Logic Diagram: Setpoint specified. | | |
-| **FS 5.1** | **Grade B: RH Control** | AHU-02 Datasheet: Humidifier/Dehumidifier Capacity. P&ID-102: RH Sensor H-102 specified. | | |
+| | **Grade A: Temp Setpoint:** 72°F ± 2°F | BAS Control Logic Diagram: Setpoint specified. | | |
+| **FS 5.1** | **Grade B: RH Control** | AHU-01 Datasheet: Humidifier/Dehumidifier Capacity. P&ID-102: RH Sensor H-102 specified. | | |
 | | **Grade B: RH Setpoint:** 45% ± 5% | BAS Control Logic Diagram: Setpoint specified. | | |
-| **FS 5.1** | **Grade C: Pressure Control** | Airflow Schematic AFS-103: Air balance calculation shows +15 Pa cascade. P&ID-103: DP Sensor DP-103 specified. | | |
-| **FS 5.1** | **Grade B/C: Air Changes (ACH)** | Airflow Schematic AFS-102/103: Supply/return airflow rates calculated to > 20 ACH. | | |
+| **FS 5.1** | **Grade C: Pressure Control** | Airflow Schematic AFS-101: Air balance calculation shows +15 Pa cascade. P&ID-103: DP Sensor DP-103 specified. | | |
+| **FS 5.1** | **Grade B/C: Air Changes (ACH)** | Airflow Schematic AFS-101: Supply/return airflow rates calculated to > 20 ACH. | | |
 | **General** | **HEPA Filtration** | Filter Datasheet F-01: Specified as H14, 99.995% efficiency at MPPS. Room Layouts: Terminal HEPA filters shown in all graded areas. | | |
-| **General** | **Materials of Construction** | Ductwork Specification DW-001: Grade 316L Stainless Steel for all process-contacting ducts. AHU-01/02 Datasheets: Smooth, non-shedding internal surfaces. | | |
-| **FS 5.2** | **Alarm Management Design** | BAS Control Logic Diagram: Alarm setpoints match FS table. P&ID-101/102/103: Critical alarm outputs specified for beacons/dialer. | | |
+| **General** | **Materials of Construction** | Ductwork Specification DW-001: Grade 316L Stainless Steel for all process-contacting ducts. AHU-01 Datasheet: Smooth, non-shedding internal surfaces. | | |
+| **FS 5.2** | **Alarm Management Design** | BAS Control Logic Diagram: Alarm setpoints match FS table. P&ID-101: Critical alarm outputs specified for beacons/dialer. | | |
 | **FS 5.3** | **21 CFR Part 11 Compliance** | Control System Architecture Diagram CS-001: Shows secure server, non-editable database, and audit trail functionality. | | |
 | **FS 5.3** | **BAS Hardware Specification** | Equipment List EL-001: Specifies Siemens S7-PLC series controller. | | |
 | **FS 5.4** | **HMI/SCADA Screens** | HMI Screen Mockups HM-01 to HM-04: Design includes required Overview, Alarm, Trend, and Diagnostic screens. | | |

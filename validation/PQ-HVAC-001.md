@@ -30,7 +30,7 @@ This PQ protocol covers the performance testing of the HVAC system over a define
 *   **Acceptance Criteria:**
     1.  All monitored parameters (Temperature, RH, Differential Pressure) as recorded by the BAS must remain within their specified **Action Limits** (per FS 5.1) for 100% of the 10-day study period.
     2.  No parameter may exceed its specified **Alarm Limit** at any time.
-    3.  The data from the independent loggers must not deviate from the corresponding BAS sensor readings by more than ±0.5°C for temperature and ±2.5% for RH.
+    3.  The data from the independent loggers must not deviate from the corresponding BAS sensor readings by more than ±1°F for temperature and ±2.5% for RH.
 
 #### **4.2 Cleanroom Classification and Recovery Testing**
 These tests will be performed during the 10-day monitoring period.

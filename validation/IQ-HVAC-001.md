@@ -36,8 +36,7 @@ This IQ protocol covers the physical installation of all components related to t
 | Check ID | Equipment | Acceptance Criteria | Verified (Y/N) | Comments (e.g., Serial #) |
 | :--- | :--- | :--- | :--- | :--- |
 | IQ-EQP-01 | Air Handling Unit (AHU-01) | Model, make, and serial number match purchase order and datasheets. Installed level and on designated pad. | | |
-| IQ-EQP-02 | Air Handling Unit (AHU-02) | Model, make, and serial number match purchase order and datasheets. Installed level and on designated pad. | | |
-| IQ-EQP-03 | Temperature Sensors (T-101, T-102, T-103) | Installed sensors' model numbers match design specification. Location matches P&ID. | | |
+| IQ-EQP-02 | Temperature Sensors (T-101, T-102, T-103) | Installed sensors' model numbers match design specification. Location matches P&ID. | | |
 | IQ-EQP-04 | RH Sensors (H-101, H-102, H-103) | Installed sensors' model numbers match design specification. Location matches P&ID. | | |
 | IQ-EQP-05 | Differential Pressure Sensors (DP-101, DP-102, DP-103) | Installed sensors' model numbers match design specification. Location matches P&ID. | | |
 | IQ-EQP-06 | Terminal HEPA Filters | Installed filters' model and efficiency (H14) match specification. No visible damage to media or seals. | | |
