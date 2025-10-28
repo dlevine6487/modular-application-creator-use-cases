@@ -50,6 +50,8 @@ This OQ protocol covers the functional testing of the HVAC system serving the Gr
 | OQ-ALM-02 | **Low Pressure Alarm:** Isolate DP sensor for Grade A and vent to atmosphere. | A "Critical" alarm activates. Audible/visual alarms trigger. Auto-dialer is activated. | | |
 | OQ-ALM-03 | **HEPA Filter Alarm:** Simulate high differential pressure across a terminal HEPA filter. | A "Critical" alarm activates on the HMI. | | |
 | OQ-ALM-04 | **Sensor Failure:** Disconnect the RH sensor for Grade C. | A "Major" alarm for sensor failure/communication loss activates on the HMI. | | |
+| OQ-ALM-05 | **Cooling Valve Failure:** Command cooling valve to 50%. Disconnect the feedback signal to simulate a failure. | A "Major" alarm for "Cooling Valve Failure" activates on the HMI after the configured time delay. | | |
+| OQ-ALM-06 | **Damper Failure:** Command damper to 50%. Disconnect the feedback signal to simulate a failure. | A "Major" alarm for "Damper Failure" activates on the HMI after the configured time delay. | | |
 
 #### **5.3 Security and Data Integrity Verification**
 | Test ID | Test Description | Acceptance Criteria | Result (Pass/Fail) | Comments |

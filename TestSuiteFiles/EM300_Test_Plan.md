@@ -38,3 +38,16 @@ To ensure the heating module correctly passes an analog demand signal to its val
 | 4.0 | **Simulate Fault** | `#Instance_DB.UDT.HW_Freeze_Stat_DI`| `TRUE` | Simulate the freeze stat tripping. |
 | 4.1 | *Evaluate* | `#Instance_DB.UDT.HW_Freeze_Alm`| `TRUE` | **Check:** The freeze alarm is now active. |
 | 4.2 | *Evaluate* | `#Instance_DB.UDT.HW_Valve_Cmd_AO`| `0.0` | **Check:** Valve is commanded fully closed on fault, ignoring the input demand. |
+
+### Test Case 3: Valve Failure Alarm
+
+*   **Test Name:** `TC3_Valve_Failure`
+*   **Objective:** Verify the valve failure alarm is triggered if feedback does not match the command after a delay.
+*   **Test Steps:**
+| Test ID | Test Step Name | Parameter | Value | Comment |
+| :--- | :--- | :--- | :--- | :--- |
+| 5.0 | **Initial State** | `#Instance_DB.Valve_Demand_In` | `50.0` | Command the valve to 50%. |
+| 5.1 | | `#Instance_DB.UDT.HW_Valve_Fdbk_AI`| `10.0` | Simulate feedback stuck at 10%. |
+| 5.2 | | `#Instance_DB.UDT.Fault_Delay_Sec` | `T#5s` | Set fault delay for the test. |
+| 6.0 | **Wait for Fault** | `#WAIT` | `5000` | Wait for 5000 ms. |
+| 6.1 | *Evaluate* | `#Instance_DB.UDT.Valve_Failure_Alm`| `TRUE` | **Check:** The failure alarm is now active. |
