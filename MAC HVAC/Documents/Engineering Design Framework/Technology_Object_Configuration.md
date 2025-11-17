@@ -90,3 +90,38 @@ END_IF;
 #### **Step 6: Command Physical Actuators**
 
 The final calculated outputs from the PID loops (after the safety override) are sent to the respective equipment modules to command the physical actuators (valves, dampers, etc.).
+
+---
+
+## 3. Discharge Air Temperature (DAT) Control PID
+
+This section details the configuration for the primary temperature control loop, `TO_PID_DAT_Control`. This PID is responsible for maintaining the final discharge air temperature by modulating both the heating and cooling control valves.
+
+### 3.1. PID Configuration
+
+*   **Purpose:** To provide stable and responsive control of the discharge air temperature.
+*   **Process Variable (PV):** `AHU1_DAT_Temp` - The analog input tag for the Discharge Air Temperature sensor.
+*   **Setpoint (SP):** A global tag, e.g., `DAT_Setpoint_F`, which can be adjusted from the HMI. A typical starting setpoint might be 70.0 °F.
+*   **Output Range:** This is a **bipolar** PID.
+    *   **High Limit:** `+100.0` (%) - Represents full cooling demand.
+    *   **Low Limit:** `-100.0` (%) - Represents full heating demand.
+
+### 3.2. Output Mapping Logic
+
+The bipolar output of the PID must be split to command the heating and cooling valves independently.
+
+*   **Cooling Valve Command (`EM200_Cooling.Valve_Demand_In`):**
+    *   If the PID output is > 0.0, this command is equal to the PID output.
+    *   If the PID output is <= 0.0, this command is 0.0.
+
+*   **Heating Valve Command (`EM300_Heating.Valve_Demand_In`):**
+    *   If the PID output is < 0.0, this command is equal to the absolute value of the PID output (e.g., `-50.0` becomes `50.0`).
+    *   If the PID output is >= 0.0, this command is 0.0.
+
+### 3.3. Recommended Initial Tuning Parameters
+
+These values are starting points and should be fine-tuned during system commissioning.
+
+*   **Proportional Gain (P):** `5.0`
+*   **Integral Time (I):** `120` seconds
+*   **Derivative Time (D):** `15` seconds
