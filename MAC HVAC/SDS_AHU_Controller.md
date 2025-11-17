@@ -53,6 +53,7 @@ This section defines the core hardware and software architecture for the AHU con
 *   **Purpose:** To control and monitor the VFD for the main supply fan.
 *   **Logic:** Controls fan start/stop and speed. Monitors run feedback, airflow, and VFD fault status.
 *   **Parameter Set:**
+
 | Parameter Name | Signal Type | I/O Type | TIA Portal Tag Name Convention |
 | :--- | :--- | :--- | :--- |
 | Start/Stop Command | Digital | Output | AHU1_SF_StartCmd |
@@ -65,6 +66,7 @@ This section defines the core hardware and software architecture for the AHU con
 *   **Purpose:** To control a modulating chilled water valve.
 *   **Logic:** Accepts an analog demand (0-100%). Monitors a freeze-stat. Generates a "Valve Failure" alarm if the commanded position and feedback do not match.
 *   **Parameter Set:**
+
 | Parameter Name | Signal Type | I/O Type | TIA Portal Tag Name Convention |
 | :--- | :--- | :--- | :--- |
 | Chilled Water Valve Cmd | Analog | Output | AHU1_CW_VlvCmd |
@@ -75,6 +77,7 @@ This section defines the core hardware and software architecture for the AHU con
 *   **Purpose:** To control a modulating hot water valve.
 *   **Logic:** Accepts an analog demand (0-100%). Monitors a freeze-stat. Generates a "Valve Failure" alarm if the commanded position and feedback do not match.
 *   **Parameter Set:**
+
 | Parameter Name | Signal Type | I/O Type | TIA Portal Tag Name Convention |
 | :--- | :--- | :--- | :--- |
 | Hot Water Valve Cmd | Analog | Output | AHU1_HW_VlvCmd |
@@ -85,6 +88,7 @@ This section defines the core hardware and software architecture for the AHU con
 *   **Purpose:** To manage dampers for ventilation and economizer cooling.
 *   **Logic:** Controls a modulating damper actuator. Generates a "Damper Failure" alarm if the commanded position and feedback do not match.
 *   **Parameter Set:**
+
 | Parameter Name | Signal Type | I/O Type | TIA Portal Tag Name Convention |
 | :--- | :--- | :--- | :--- |
 | Damper Position Cmd | Analog | Output | AHU1_DMP_PosCmd |
@@ -97,6 +101,7 @@ This section defines the core hardware and software architecture for the AHU con
 *   **Purpose:** To monitor system-wide components.
 *   **Logic:** Monitors a differential pressure switch for a "Dirty Filter" alarm.
 *   **Parameter Set:**
+
 | Parameter Name | Signal Type | I/O Type | TIA Portal Tag Name Convention |
 | :--- | :--- | :--- | :--- |
 | Dirty Filter Status | Digital | Input | AHU1_SYS_DirtyFilter |

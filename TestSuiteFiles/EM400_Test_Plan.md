@@ -33,10 +33,10 @@ To ensure the damper module correctly drives to the minimum ventilation position
 
 | Test ID | Test Step Name | Parameter | Value | Comment |
 | :--- | :--- | :--- | :--- | :--- |
-| 5.0 | **Initial State** | `#Instance_DB.Enable` | `TRUE` | Enable the module. |
-| 5.1 | | `#Instance_DB.Econ_Mode_Active` | `FALSE` | Ensure economizer is off. |
-| 5.2 | | `#Instance_DB.UDT.Min_Fresh_Air_Pos`| `25.0` | Set a new min position of 25%. |
-| 5.3 | *Evaluate* | `#Instance_DB.UDT.Damper_Pos_Cmd_AO`| `25.0` | **Check:** Damper command now follows the new setpoint. |
+| 4.0 | **Initial State** | `#Instance_DB.Enable` | `TRUE` | Enable the module. |
+| 4.1 | | `#Instance_DB.Econ_Mode_Active` | `FALSE` | Ensure economizer is off. |
+| 4.2 | | `#Instance_DB.UDT.Min_Fresh_Air_Pos`| `25.0` | Set a new min position of 25%. |
+| 4.3 | *Evaluate* | `#Instance_DB.UDT.Damper_Pos_Cmd_AO`| `25.0` | **Check:** Damper command now follows the new setpoint. |
 
 ### Test Case 2: Economizer Mode Passthrough
 
