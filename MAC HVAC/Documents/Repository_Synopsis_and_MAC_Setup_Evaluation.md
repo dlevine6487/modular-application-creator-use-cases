@@ -14,17 +14,14 @@ This repository contains a comprehensive project for an industrial **HVAC Air Ha
 
 ### Key Directories
 
-*   **`MAC HVAC/`**: This is the core of the HVAC application's engineering and design.
+*   **`MAC HVAC/`**: This is the central folder for the entire HVAC application. It contains all engineering, design, code, and validation artifacts.
     *   `Documents/`: Contains all design specifications, including the master IO list (`SDS_AHU_Controller.md`), UDT definitions, and control loop configuration guides.
+    *   `TiaPortal_Export_Files/`: The library of standardized SCL source files, UDTs, and other components that are used by the MAC to generate the PLC program.
+    *   `TestSuiteFiles/`: Contains the quality assurance documents, including Markdown Test Plans and Python test scripts.
+    *   `validation/`: Holds the formal validation and qualification documents (DQ, IQ, etc.).
     *   `Lets_Make_The_MAC/`: Intended to hold user-focused guides for the MAC tool (currently empty).
 
 *   **`MAC_use_cases/`**: This directory contains the C# source code for the **Modular Application Creator (MAC)** tool itself. It is a .NET application built on the MVVM (Model-View-ViewModel) pattern, which provides the GUI for configuring and generating the TIA Portal projects.
-
-*   **`TiaPortal_Export_Files/`**: This directory serves as the library of standardized code blocks that are used by the MAC to generate the final PLC program. It contains the source code for all the Equipment Module Function Blocks (e.g., `FB100_EM_SupplyFan.scl`), User Data Types (`.udt`), and other PLC components in a text-based format that can be imported into TIA Portal.
-
-*   **`TestSuiteFiles/`**: Contains the quality assurance and testing documentation for the HVAC application. This includes detailed Markdown Test Plans for each Equipment Module and corresponding Python test scripts (`.py`) for simulated testing.
-
-*   **`validation/`**: Holds the formal validation and qualification documents (DQ, IQ, etc.), which are critical for projects in regulated industries.
 
 ---
 
