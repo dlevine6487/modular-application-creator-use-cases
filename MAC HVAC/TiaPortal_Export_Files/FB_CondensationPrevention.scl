@@ -1,46 +1,69 @@
-FUNCTION_BLOCK FB_CondensationPrevention
-VERSION : 0.1
-AUTHOR  : AI_Assistant
+FUNCTION_BLOCK "FB_CondensationPrevention"
+{
+    S7_Optimized_Access := 'TRUE'
+}
+VERSION : 1.0
+   VAR_INPUT
+      Commanded_Cooling_Pos : Real; // Commanded position from primary PID (0-100%)
+      OutsideAir_Temp : Real; // Outside Air Temperature in °F
+      OutsideAir_RH : Real; // Outside Air Relative Humidity in %
+      SupplyAir_Temp : Real; // Supply Air Temperature (downstream of coil) in °F
+      DewPoint_Safety_Margin : Real; // Safety margin in °F (e.g., 2.0)
+      Min_Supply_Air_Temp_SP : Real; // Hard lower limit for SA_Temp (e.g., 55.0 °F)
+   END_VAR
 
-VAR_INPUT
-    Tdp_sp_User : Real; // User's desired dew point setpoint
-    PlenumSurfaceTemp_1 : Real; // Sensor reading for critical plenum surface 1
-    PlenumSurfaceTemp_2 : Real; // Sensor reading for critical plenum surface 2
-    ActualDewPoint_F : Real; // Calculated from FB_CalculateAirEnthalpy outputs
-    Tdp_MinMargin : Real := 5.0; // Minimum margin in F (e.g., dew point must be at least 5F below surface temp)
-END_VAR
+   VAR_OUTPUT
+      Cooling_Override_Active : Bool; // TRUE if override is active
+      Limited_Cooling_Pos : Real; // Final, safe valve position to be sent to the AO
+   END_VAR
 
-VAR_OUTPUT
-    HumidifierEnable : Bool;
-    CurrentTdp_Limit : Real;
-END_VAR
+   VAR_TEMP
+      OutsideAir_DewPoint : Real; // Calculated Dew Point of the outside air
+      Supply_Air_Temp_Limit : Real; // Calculated minimum allowable SA Temp
+      Temp_C : Real;
+      P_ws : Real;
+      P_w : Real;
+      // Magnus formula constants
+      A : Real := 611.2;
+      B : Real := 17.67;
+      C : Real := 243.5;
+   END_VAR
 
-VAR_TEMP
-    Tdp_Limit_1 : Real;
-    Tdp_Limit_2 : Real;
-END_VAR
 
 BEGIN
+    // == Step 1: Calculate Outside Air Dew Point in Fahrenheit ==
 
-    // Call your Dew Point Calculation Function (e.g., FC_CalculateDewPoint)
-    // FC_CalculateDewPoint(PartialVaporPressure_Pa := FB_CalculateAirEnthalpy_DB.PartialVaporPressure_Pa,
-    //                     DryBulbTemp_F := FB_CalculateAirEnthalpy_DB.DryBulbTemp_F, // May be needed for some Tdp calcs
-    //                     DewPoint_F := #ActualDewPoint_F);
+    // Convert Temperature to Celsius for the formula
+    #Temp_C := (#OutsideAir_Temp - 32.0) * 5.0 / 9.0;
 
-    // Determine critical dew point limits
-    #Tdp_Limit_1 := #PlenumSurfaceTemp_1 - #Tdp_MinMargin;
-    #Tdp_Limit_2 := #PlenumSurfaceTemp_2 - #Tdp_MinMargin;
-    #CurrentTdp_Limit := MIN(#Tdp_Limit_1, #Tdp_Limit_2); // Take the lowest (most restrictive) limit
+    // Calculate Partial Pressure of Water Vapor (P_w) in Pascals
+    #P_w := #A * EXP((#B * #Temp_C) / (#C + #Temp_C)) * (#OutsideAir_RH / 100.0);
 
-    // Override Humidifier Control
-    IF #ActualDewPoint_F >= #CurrentTdp_Limit THEN
-        // Dew point is too high, risk of condensation!
-        // Reduce humidifier output, or even temporarily disable it.
-        // This would typically override the PID_HumidityRatio output directly.
-        #HumidifierEnable := FALSE; // Or force PID output to 0
-        // You might also log an alarm here
+    // Calculate Dew Point in Celsius using the Magnus formula inverse
+    #OutsideAir_DewPoint := (#C * LN(#P_w / #A)) / (#B - LN(#P_w / #A));
+
+    // Convert Dew Point back to Fahrenheit
+    #OutsideAir_DewPoint := #OutsideAir_DewPoint * 9.0 / 5.0 + 32.0;
+
+    // == Step 2: Determine the Supply Air Temperature Limit ==
+    #Supply_Air_Temp_Limit := #OutsideAir_DewPoint + #DewPoint_Safety_Margin;
+
+    // == Step 3: Implement Override Logic ==
+    IF #SupplyAir_Temp < #Supply_Air_Temp_Limit OR #SupplyAir_Temp < #Min_Supply_Air_Temp_SP THEN
+        // OVERRIDE ACTIVE: The supply air is too cold, risking condensation.
+        #Cooling_Override_Active := TRUE;
+
+        // Take decisive action: close the cooling valve to allow the temperature to rise.
+        // A more advanced strategy could use a PID to maintain the SA_Temp right at the limit,
+        // but a hard override is safer for this implementation.
+        #Limited_Cooling_Pos := 0.0;
+
     ELSE
-        #HumidifierEnable := TRUE; // Allow humidifier to operate normally
+        // NORMAL OPERATION: No risk of condensation.
+        #Cooling_Override_Active := FALSE;
+
+        // Pass the primary controller's commanded position through to the output.
+        #Limited_Cooling_Pos := #Commanded_Cooling_Pos;
     END_IF;
 
 END_FUNCTION_BLOCK
